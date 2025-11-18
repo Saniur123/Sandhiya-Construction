@@ -1,0 +1,141 @@
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* --- Animated Mesh Gradient Background --- */
+.colorful-background {
+  background: linear-gradient(315deg, #2d3748, #ff8c00, #f9c80e, #2d3748);
+  background-size: 400% 400%;
+  animation: gradient-animation 25s ease infinite;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* --- General App Styling --- */
+.form-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #f9c80e;
+  box-shadow: 0 0 0 3px rgba(249, 200, 14, 0.3);
+}
+
+.form-input::placeholder {
+  color: #a0aec0;
+}
+
+
+/* --- Home Page Button Card --- */
+.home-button-grid-container {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  position: relative;
+  z-index: 10;
+}
+
+.home-button-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+.home-button-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.home-button-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 1rem;
+  border: 2px solid transparent;
+  background: linear-gradient(145deg, #f9c80e, #ff8c00) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.home-button-card:hover::before {
+  opacity: 1;
+}
+
+/* --- Emergency FAB --- */
+.emergency-fab {
+  position: fixed;
+  bottom: 6.5rem; /* Adjust to be above nav bar */
+  right: 1.5rem;
+  width: 4rem;
+  height: 4rem;
+  background: linear-gradient(145deg, #ef4444, #dc2626);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  z-index: 45;
+  color: white;
+  animation: pulse-red 2s infinite cubic-bezier(0.66, 0, 0, 1);
+  transition: transform 0.2s ease;
+}
+.emergency-fab:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+/* --- Navigation Bar --- */
+.nav-pill {
+    background: linear-gradient(90deg, #f9c80e, #ff8c00);
+    box-shadow: 0 0 15px rgba(249, 200, 14, 0.5);
+}

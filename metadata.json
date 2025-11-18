@@ -1,0 +1,7 @@
+{
+  "name": "Sandhiya Construction",
+  "description": "Connect with professional construction services. Submit work requests, view designs, and contact us directly. Supports English and Tamil.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
