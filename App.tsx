@@ -199,7 +199,7 @@ const translations = {
     sources: "ஆதாரங்கள்:",
     animateWithVeo: "AI மூலம் அனிமேட் செய்",
     veoTitle: "உங்கள் வடிவமைப்புகளை AI மூலம் அனிமேட் செய்யுங்கள்",
-    veoDesc: "உங்கள் யோசனைகளுக்கு உயிர் கொடுங்கள்! உங்கள் திட்டத்தின் படத்தை (தரைத் திட்டம் அல்லது இருக்கும் கட்டிடம் போன்றவை) பதிவேற்றி, நீங்கள் பார்க்க விரும்பும் அனிமேஷனை விவரிக்கவும்.",
+    veoDesc: "உங்கள் யோசனைகளுக்கு உயிர் கொடுங்கள்! உங்கள் திட்டத்தின் படத்தை (தரைத் திட்டம் அல்லது இருக்கும் கட்டிடம் போன்றவை) பதிவேற்றி, நீங்கள் பார்க்க விரும்பும் அனிஷேனை விவரிக்கவும்.",
     uploadImage: "படத்தை பதிவேற்று",
     removeImage: "படத்தை அகற்று",
     imagePrompt: "அனிமேஷன் ப்ராம்ப்ட் (எ.கா., 'இந்த வீட்டின் நவீன நடைப்பயிற்சி')",
@@ -305,15 +305,16 @@ const RequestForm = ({ t, onFormSubmit }: { t: any, onFormSubmit: () => void }) 
     e.preventDefault();
     if (formData.name && formData.area && formData.number) {
         const managerNumbers = ["9840475210", "9841975210"];
+        const timestamp = new Date().toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'medium' });
 
-        let messageContent = `New Customer Request:\nName: ${formData.name}\nArea: ${formData.area}\nWork: ${formData.work}\nContact: ${formData.number}`;
+        let messageContent = `New Customer Request (${timestamp}):\nName: ${formData.name}\nArea: ${formData.area}\nWork: ${formData.work}\nContact: ${formData.number}`;
         if (formData.description) messageContent += `\nDescription: ${formData.description}`;
         if (formData.email) messageContent += `\nEmail: ${formData.email}`;
 
-        messageContent += `\n\nபுதிய வாடிக்கையாளர் தகவல்:\nபெயர்: ${formData.name}\nபகுதி: ${formData.area}\nவேலை: ${formData.work}\nஎண்: ${formData.number}`;
+        messageContent += `\n\nபுதிய வாடிக்கையாளர் தகவல் (${timestamp}):\nபெயர்: ${formData.name}\nபகுதி: ${formData.area}\nவேலை: ${formData.work}\nஎண்: ${formData.number}`;
         if (formData.description) messageContent += `\nவிளக்கம்: ${formData.description}`;
         if (formData.email) messageContent += `\nமின்னஞ்சல்: ${formData.email}`;
-
+        
         const encodedMessage = encodeURIComponent(messageContent);
         managerNumbers.forEach(num => {
             window.open(`https://wa.me/91${num}?text=${encodedMessage}`, '_blank');
@@ -321,8 +322,6 @@ const RequestForm = ({ t, onFormSubmit }: { t: any, onFormSubmit: () => void }) 
 
         const smsMessage = `New Construction Request: ${formData.name}, ${formData.area}, ${formData.work}, ${formData.number}`;
         const encodedSms = encodeURIComponent(smsMessage);
-        // Note: SMS may not work on all devices/browsers this way.
-        // window.open(`sms:${managerNumbers.join(',')}?body=${encodedSms}`);
         
         setIsSubmitted(true);
         setTimeout(() => {
@@ -428,7 +427,11 @@ const ServicesPage = ({ t }: { t: any }) => (
     <ContentCard>
       <ul className="space-y-4">
         {t.servicesList.map((service: string, index: number) => (
-          <li key={index} className="interactive-list-item">
+          <li 
+            key={index} 
+            className="interactive-list-item stagger-item"
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
             <span className="font-semibold text-white">{service}</span>
           </li>
         ))}
@@ -929,6 +932,20 @@ const ContactPage = ({ t }: { t: any }) => (
 
 
 // --- MAIN APP COMPONENT ---
+const Clock = () => {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const timerId = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timerId);
+  }, []);
+  return (
+    <div className="digital-clock">
+      {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+    </div>
+  );
+};
+
+
 const Header = ({ onNavClick, onShareClick, t }: { onNavClick: (page: string) => void; onShareClick: () => Promise<void>; t: any }) => (
   <header className="sticky top-0 z-40 bg-slate-900/50 backdrop-filter backdrop-blur-lg border-b border-white/10 shadow-lg">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -940,6 +957,7 @@ const Header = ({ onNavClick, onShareClick, t }: { onNavClick: (page: string) =>
           </button>
         </div>
         <div className="flex items-center">
+            <Clock />
             <button onClick={() => onNavClick('language')} className="p-2 rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition">
               <Icon name="language" className="h-6 w-6" />
             </button>

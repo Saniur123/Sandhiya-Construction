@@ -1,3 +1,4 @@
+
 /* Import Poppins font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -170,6 +171,21 @@ body {
 }
 
 
+/* --- Header Clock --- */
+.digital-clock {
+  font-family: 'Montserrat', 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #f9c80e;
+  text-shadow: 0 0 4px #f9c80e;
+  padding: 0 0.5rem;
+  letter-spacing: 1.5px;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin-right: 0.5rem;
+}
+
+
 /* --- Navigation Bar --- */
 .nav-pill {
     background: linear-gradient(90deg, #f9c80e, #ff8c00);
@@ -302,6 +318,21 @@ body {
   border-left-color: #f9c80e;
 }
 
+.stagger-item {
+  opacity: 0;
+  animation: fade-in-stagger 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fade-in-stagger {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
 .fade-in {
   animation: fadeIn-simple 0.5s ease-out forwards;
